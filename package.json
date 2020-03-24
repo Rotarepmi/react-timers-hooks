@@ -1,8 +1,8 @@
 {
   "name": "react-timers-hooks",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "description": "React reusable hooks for Timeout and Interval",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf ./lib && tsc"
   },
