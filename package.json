@@ -14,5 +14,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "typescript": "^3.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rotarepmi/react-timers-hooks.git"
   }
 }
