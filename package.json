@@ -4,7 +4,7 @@
   "description": "React reusable hooks for Timeout and Interval",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf ./lib && tsc"
   },
   "author": "Jakub Mandra",
   "license": "MIT",
