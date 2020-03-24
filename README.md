@@ -1,5 +1,5 @@
 # React Timers Hooks
-### Usage
+## Usage
 ```
 import { useInterval, useTimeout } from "react-timers-hooks";
 
@@ -26,4 +26,6 @@ The useInterval/useTimeout accepts 2 arguments - your callback function and dela
 If delay is set to null the timer is cleared.
 If the delay has changed during the countdown, the tick resets and starts again with new delay value.
 
-License: MIT.
+## License
+
+MIT
