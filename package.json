@@ -1,22 +1,33 @@
 {
-  "name": "react-timers-hooks",
-  "version": "1.0.6",
-  "description": "React reusable hooks for Timeout and Interval",
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "rm -rf ./lib && tsc"
-  },
-  "author": "Jakub Mandra",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/react": "^16.9.25",
-    "@types/react-dom": "^16.9.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "typescript": "^3.8.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Rotarepmi/react-timers-hooks.git"
-  }
+    "name": "react-timers-hooks",
+    "version": "1.0.7",
+    "description": "React reusable hooks for Timeout and Interval",
+    "main": "lib/index.js",
+    "scripts": {
+        "build": "rm -rf ./lib && tsc"
+    },
+    "author": "Jakub Mandra",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/react": "^16.9.25",
+        "@types/react-dom": "^16.9.5",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "typescript": "^3.8.3"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Rotarepmi/react-timers-hooks.git"
+    },
+    "keywords": [
+        "setInterval",
+        "setTimeout",
+        "timers",
+        "interval hook",
+        "timeout hook",
+        "custom hooks",
+        "react hooks",
+        "react timers",
+        "react timers hooks"
+    ]
 }
