@@ -1,6 +1,6 @@
 {
     "name": "react-timers-hooks",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "React reusable hooks for Timeout and Interval",
     "homepage": "https://github.com/Rotarepmi/react-timers-hooks",
     "main": "lib/index.js",
