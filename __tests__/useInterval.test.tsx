@@ -34,7 +34,7 @@ describe("useInterval", () => {
         const { unmount } = render(<TestComponent interval={tick} callback={callback} />);
 
         expect(setInterval).toHaveBeenCalledWith(expect.any(Function), tick);
-        expect(setInterval).not.toHaveBeenCalledWith(expect.any(Function), tick*1.5);
+        expect(setInterval).not.toHaveBeenCalledWith(expect.any(Function), tick * 1.5);
 
         unmount();
     });
@@ -44,15 +44,15 @@ describe("useInterval", () => {
 
         expect(callback).not.toBeCalled();
 
-        jest.advanceTimersByTime(tick*0.5);
+        jest.advanceTimersByTime(tick * 0.5);
 
         expect(callback).not.toBeCalled();
 
-        jest.advanceTimersByTime(tick*0.5);
+        jest.advanceTimersByTime(tick * 0.5);
 
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(1);
-        
+
         unmount();
     });
 
@@ -87,7 +87,7 @@ describe("useInterval", () => {
 
         expect(callback).not.toBeCalled();
 
-        jest.advanceTimersByTime(tick*3);
+        jest.advanceTimersByTime(tick * 3);
 
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(3);
@@ -127,16 +127,16 @@ describe("useInterval", () => {
         const { unmount, rerender } = render(<TestComponent interval={tick} callback={callback} />);
 
         expect(callback).not.toBeCalled();
-        
+
         jest.advanceTimersByTime(tick);
 
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(1);
-        
+
         rerender(<TestComponent interval={null} callback={callback} />);
 
-        jest.advanceTimersByTime(tick*2);
-        
+        jest.advanceTimersByTime(tick * 2);
+
         expect(callback).toBeCalledTimes(1);
 
         unmount();
@@ -146,17 +146,35 @@ describe("useInterval", () => {
         const { unmount, rerender } = render(<TestComponent interval={null} callback={callback} />);
 
         expect(callback).not.toBeCalled();
-        
+
         jest.advanceTimersByTime(tick);
-        
+
         expect(callback).not.toBeCalled();
-        
+
         rerender(<TestComponent interval={tick} callback={callback} />);
-        
-        jest.advanceTimersByTime(tick*2);
-        
+
+        jest.advanceTimersByTime(tick * 2);
+
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(2);
+
+        unmount();
+    });
+
+    it("should call currently provided callback", () => {
+        const { unmount, rerender } = render(<TestComponent interval={tick} callback={callback} />);
+        const newCallback = jest.fn();
+
+        jest.advanceTimersByTime(tick);
+
+        rerender(<TestComponent interval={tick} callback={newCallback} />);
+
+        jest.advanceTimersByTime(tick * 2);
+
+        expect(callback).toBeCalled();
+        expect(callback).toBeCalledTimes(1);
+        expect(newCallback).toBeCalled();
+        expect(newCallback).toBeCalledTimes(2);
 
         unmount();
     });
