@@ -34,7 +34,7 @@ describe("useTimeout", () => {
         const { unmount } = render(<TestComponent delay={delay} callback={callback} />);
 
         expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), delay);
-        expect(setTimeout).not.toHaveBeenCalledWith(expect.any(Function), delay*1.5);
+        expect(setTimeout).not.toHaveBeenCalledWith(expect.any(Function), delay * 1.5);
 
         unmount();
     });
@@ -48,7 +48,7 @@ describe("useTimeout", () => {
 
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(1);
-        
+
         unmount();
     });
 
@@ -83,16 +83,16 @@ describe("useTimeout", () => {
 
         expect(callback).not.toBeCalled();
 
-        jest.advanceTimersByTime(delay*0.5);
+        jest.advanceTimersByTime(delay * 0.5);
 
         expect(callback).not.toBeCalled();
 
-        jest.advanceTimersByTime(delay*0.5);
-        
+        jest.advanceTimersByTime(delay * 0.5);
+
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(1);
 
-        jest.advanceTimersByTime(delay*3);
+        jest.advanceTimersByTime(delay * 3);
 
         expect(callback).toBeCalledTimes(1);
 
@@ -103,15 +103,15 @@ describe("useTimeout", () => {
         const { unmount, rerender } = render(<TestComponent delay={delay} callback={callback} />);
 
         expect(callback).not.toBeCalled();
-        
-        jest.advanceTimersByTime(delay*0.5);
+
+        jest.advanceTimersByTime(delay * 0.5);
 
         expect(callback).not.toBeCalled();
-        
+
         rerender(<TestComponent delay={null} callback={callback} />);
 
         jest.advanceTimersByTime(delay);
-        
+
         expect(callback).not.toBeCalled();
 
         unmount();
@@ -121,17 +121,34 @@ describe("useTimeout", () => {
         const { unmount, rerender } = render(<TestComponent delay={null} callback={callback} />);
 
         expect(callback).not.toBeCalled();
-        
+
         jest.advanceTimersByTime(delay);
-        
+
         expect(callback).not.toBeCalled();
-        
+
         rerender(<TestComponent delay={delay} callback={callback} />);
-        
-        jest.advanceTimersByTime(delay*2);
-        
+
+        jest.advanceTimersByTime(delay * 2);
+
         expect(callback).toBeCalled();
         expect(callback).toBeCalledTimes(1);
+
+        unmount();
+    });
+
+    it("should call currently provided callback", () => {
+        const { unmount, rerender } = render(<TestComponent delay={delay} callback={callback} />);
+        const newCallback = jest.fn();
+
+        jest.advanceTimersByTime(delay * 0.5);
+
+        rerender(<TestComponent delay={delay} callback={newCallback} />);
+
+        jest.advanceTimersByTime(delay * 0.5);
+
+        expect(callback).not.toBeCalled();
+        expect(newCallback).toBeCalled();
+        expect(newCallback).toBeCalledTimes(1);
 
         unmount();
     });
