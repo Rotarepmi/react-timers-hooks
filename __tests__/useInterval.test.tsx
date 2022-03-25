@@ -14,27 +14,35 @@ const TestComponent: React.FC<{ interval: number | null; callback: () => void }>
 let callback = jest.fn();
 const tick = 1000;
 
-beforeEach(() => {
-    jest.useFakeTimers();
-    jest.clearAllTimers();
-    callback = jest.fn();
-});
-
 describe("useInterval", () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+        jest.clearAllTimers();
+        callback = jest.fn();
+    });
+    
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+    
     it("should call setInterval on mount & clearInterval on un-mount", () => {
+        const setIntervalSpy = jest.spyOn(global, 'setInterval')
+        const clearIntervalSpy = jest.spyOn(global, 'clearInterval')
         const { unmount } = render(<TestComponent interval={tick} callback={callback} />);
 
         unmount();
 
-        expect(setInterval).toHaveBeenCalledTimes(1);
-        expect(clearInterval).toHaveBeenCalledTimes(1);
+        expect(setIntervalSpy).toHaveBeenCalledTimes(1);
+        expect(clearIntervalSpy).toHaveBeenCalledTimes(1);
     });
 
     it("should run interval with proper tick value (1000ms)", () => {
+        const setIntervalSpy = jest.spyOn(global, 'setInterval')
+        const clearIntervalSpy = jest.spyOn(global, 'clearInterval')
         const { unmount } = render(<TestComponent interval={tick} callback={callback} />);
 
-        expect(setInterval).toHaveBeenCalledWith(expect.any(Function), tick);
-        expect(setInterval).not.toHaveBeenCalledWith(expect.any(Function), tick * 1.5);
+        expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), tick);
+        expect(clearIntervalSpy).not.toHaveBeenCalledWith(expect.any(Function), tick * 1.5);
 
         unmount();
     });

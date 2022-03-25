@@ -14,27 +14,35 @@ const TestComponent: React.FC<{ delay: number | null; callback: () => void }> = 
 let callback = jest.fn();
 const delay = 1000;
 
-beforeEach(() => {
-    jest.useFakeTimers();
-    jest.clearAllTimers();
-    callback = jest.fn();
-});
 
 describe("useTimeout", () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+        jest.clearAllTimers();
+        callback = jest.fn();
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it("should call setTimeout on mount & clearTimeout on un-mount", () => {
+        const setTimeoutSpy = jest.spyOn(global, 'setTimeout')
+        const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout')
         const { unmount } = render(<TestComponent delay={delay} callback={callback} />);
 
         unmount();
 
-        expect(setTimeout).toHaveBeenCalledTimes(2); // test-renderer runs setTimeout as well
-        expect(clearTimeout).toHaveBeenCalledTimes(1);
+        expect(setTimeoutSpy).toHaveBeenCalledTimes(2); // test-renderer runs setTimeout as well
+        expect(clearTimeoutSpy).toHaveBeenCalledTimes(1);
     });
 
     it("should run timeout with proper delay value (1000ms)", () => {
+        const setTimeoutSpy = jest.spyOn(global, 'setTimeout')
         const { unmount } = render(<TestComponent delay={delay} callback={callback} />);
 
-        expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), delay);
-        expect(setTimeout).not.toHaveBeenCalledWith(expect.any(Function), delay * 1.5);
+        expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), delay);
+        expect(setTimeoutSpy).not.toHaveBeenCalledWith(expect.any(Function), delay * 1.5);
 
         unmount();
     });
